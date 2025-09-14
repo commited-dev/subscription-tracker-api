@@ -53,7 +53,6 @@ const subscriptionSchema = new mongoose.Schema(
       type: String,
       enum: ["active", "canceled", "paused", "expired"],
       default: "active",
-      required: [true, "Status is required"],
     },
     startDate: {
       type: Date,
@@ -75,7 +74,7 @@ const subscriptionSchema = new mongoose.Schema(
         message: "Renewal Date must be after Start Date",
       },
     },
-    userId: {
+    user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: [true, "User ID is required"],
