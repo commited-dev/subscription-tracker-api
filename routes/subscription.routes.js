@@ -22,12 +22,7 @@ subscriptionRouter.get(
   getAllSubscriptions
 );
 
-subscriptionRouter.get(
-  "/:id",
-  authenticateUser,
-  authorizeUser("admin"),
-  getSubscriptionById
-);
+subscriptionRouter.get("/:id", authenticateUser, getSubscriptionById);
 
 subscriptionRouter.post("/", authenticateUser, createSubscription);
 
