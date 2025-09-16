@@ -1,4 +1,4 @@
-const errorMiddleware = (err, req, res, next) => {
+export const errorMiddleware = (err, req, res, next) => {
   try {
     let error = { ...err };
     error.message = err.message;
@@ -37,5 +37,3 @@ const errorMiddleware = (err, req, res, next) => {
     next(error);
   }
 };
-
-export default errorMiddleware;

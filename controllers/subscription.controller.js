@@ -1,4 +1,4 @@
-import { SERVER_URL } from "../config/env.js";
+import { ADMIN_ROLE, SERVER_URL } from "../config/env.js";
 import { workflowClient } from "../config/upstash.js";
 import Subscription from "../models/subscription.model.js";
 
@@ -24,6 +24,14 @@ export const getSubscriptionById = async (req, res, next) => {
       const error = new Error("Subscription not found");
       error.statusCode = 404;
       throw error;
+    }
+
+    // Check ownership or admin
+    if (
+      subscription.user.toString() !== req.user._id.toString() && // not the owner
+      req.user.role !== ADMIN_ROLE // not an admin
+    ) {
+      return res.status(403).json({ message: "Forbidden: access denied" });
     }
 
     res.status(200).json({

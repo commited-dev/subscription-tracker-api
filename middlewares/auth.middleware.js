@@ -2,7 +2,8 @@ import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "../config/env.js";
 import User from "../models/user.model.js";
 
-export const authorize = async (req, res, next) => {
+// ✅ Step 1: Authenticate any logged-in user
+export const authenticateUser = async (req, res, next) => {
   const authHeader = req.headers.authorization;
 
   try {
@@ -28,4 +29,14 @@ export const authorize = async (req, res, next) => {
       .status(401)
       .json({ message: "Unauthorized", error: error.message });
   }
+};
+
+// ✅ Step 2: Authorize based on roles
+export const authorizeUser = (...roles) => {
+  return (req, res, next) => {
+    if (!req.user || !roles.includes(req.user.role)) {
+      return res.status(403).json({ message: "Forbidden: insufficient role" });
+    }
+    next();
+  };
 };
