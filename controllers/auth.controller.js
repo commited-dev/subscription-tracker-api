@@ -9,23 +9,24 @@ export const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
+    // Check if user exists
     const user = await User.findOne({ email });
-
     if (!user) {
       const error = new Error("Invalid email address or password");
       error.statusCode = 404;
       throw error;
     }
 
+    // Validate password
     const isPasswordValid = await bcrypt.compare(password, user.password);
-
     if (!isPasswordValid) {
       const error = new Error("Invalid email address or password");
       error.statusCode = 401;
       throw error;
     }
 
-    const token = jwt.sign({ userId: user._id }, JWT_SECRET, {
+    // Generate JWT token
+    const token = jwt.sign({ userId: user._id, role: user.role }, JWT_SECRET, {
       expiresIn: JWT_EXPIRES_IN,
     });
 
