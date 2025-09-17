@@ -14,6 +14,10 @@ const swaggerDefinition = {
       url: SERVER_URL || "http://localhost:5500",
       description: "Local server",
     },
+    {
+      url: "https://subscription-tracker-api-hir7.onrender.com",
+      description: "Production server (Render)",
+    },
   ],
   components: {
     securitySchemes: {
