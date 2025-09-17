@@ -106,20 +106,6 @@ yarn dev
 
 The API will be available at `http://localhost:5500`
 
-### Production
-
-Build and start the production server:
-
-```bash
-npm run build
-npm start
-# or
-yarn build
-yarn start
-```
-
-## API Documentation
-
 ### Base URL
 
 ```
