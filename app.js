@@ -10,6 +10,8 @@ import workflowRouter from "./routes/workflow.routes.js";
 import { errorMiddleware } from "./middlewares/error.middleware.js";
 import { arcjetMiddleware } from "./middlewares/arcjet.middleware.js";
 
+import { setupSwagger } from "./swagger.js";
+
 const app = express();
 
 app.use(express.json());
@@ -28,8 +30,11 @@ app.get("/", (req, res) => {
   res.send("Subscription Tracker API is running");
 });
 
+setupSwagger(app);
+
 app.listen(PORT, async () => {
   console.log(`Server is running on port http://localhost:${PORT}`);
+  console.log(`API docs available at http://localhost:${PORT}/api-docs`);
 
   await connectToDatabase();
 });
